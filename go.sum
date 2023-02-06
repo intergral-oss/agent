@@ -2617,6 +2617,8 @@ github.com/percona/exporter_shared v0.7.4-0.20211108113423-8555cdbac68b h1:tPnod
 github.com/percona/exporter_shared v0.7.4-0.20211108113423-8555cdbac68b/go.mod h1:bweWrCdYX+iAONTNUNIIkXGDjGg8dbFL0VBxuUv0wus=
 github.com/percona/mongodb_exporter v0.31.2 h1:FrXbWxNsDF1lsq2HjUHYDYRkTsO7MIDi5u+KS1b0mW4=
 github.com/percona/mongodb_exporter v0.31.2/go.mod h1:RxM2d9rCF3jwLxc+TGtapMxXjAA0+gyPqBDsyh2HL+k=
+github.com/percona/mongodb_exporter v0.36.0 h1:2AiD5DoLs2McJHoQ+PJ8H7pX7OrQdiwfOpTW4LcjYeQ=
+github.com/percona/mongodb_exporter v0.36.0/go.mod h1:ni/pr2+moPKOv26cHnKp2CltTbxzsRVj+0e/1SmMQkU=
 github.com/percona/percona-toolkit v0.0.0-20211210121818-b2860eee3152 h1:3AOGevjw3JfLPqzos6VnF2L9T0UosjHu4IO8+Ogk08w=
 github.com/percona/percona-toolkit v0.0.0-20211210121818-b2860eee3152/go.mod h1:CCa6vyT51VeEG5KcJ2smk4/HyxX6Aunt8RxfnwlC85A=
 github.com/performancecopilot/speed v3.0.0+incompatible/go.mod h1:/CLtqpZ5gBg1M9iaPbIdPPGyKcA8hKdoy6hAWba7Yac=

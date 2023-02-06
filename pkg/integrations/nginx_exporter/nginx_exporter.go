@@ -2,25 +2,25 @@ package nginx_exporter
 
 import (
 	"fmt"
+	"github.com/go-kit/log"
 	"github.com/grafana/agent/pkg/integrations"
 	integrations_v2 "github.com/grafana/agent/pkg/integrations/v2"
 	"github.com/grafana/agent/pkg/integrations/v2/metricsutils"
+	"github.com/nginxinc/nginx-prometheus-exporter/client"
+	"github.com/nginxinc/nginx-prometheus-exporter/collector"
+	config_util "github.com/prometheus/common/config"
+	"net/http"
 	"net/url"
 )
 
-// DefaultConfig holds the default settings for the nginx_exporter integration.
-var DefaultConfig = Config{}
-
 // Config controls the nginx_exporter integration.
 type Config struct {
-	ScrapeURI string `yaml:"scrape_uri"`
-	NginxPlus bool   `yaml:"nginx_plus,omitempty"`
+	ScrapeURI config_util.Secret `yaml:"scrape_uri"`
+	NginxPlus bool               `yaml:"nginx_plus,omitempty"`
 }
 
 // UnmarshalYAML implements yaml.Unmarshaler for Config
 func (c *Config) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	*c = DefaultConfig
-
 	type plain Config
 	return unmarshal((*plain)(c))
 }
@@ -32,7 +32,7 @@ func (c *Config) Name() string {
 
 // InstanceKey returns the address:port of the mongodb server being queried.
 func (c *Config) InstanceKey(_ string) (string, error) {
-	u, err := url.Parse(string(c.URI))
+	u, err := url.Parse(string(c.ScrapeURI))
 	if err != nil {
 		return "", fmt.Errorf("could not parse url: %w", err)
 	}
@@ -51,7 +51,14 @@ func init() {
 
 // New creates a new nginx_exporter integration.
 func New(logger log.Logger, c *Config) (integrations.Integration, error) {
-	logrusLogger := NewLogger(logger)
+	//logrusLogger := integrations.NewLogger(logger)
 
-	return integrations.NewHandlerIntegration(c.Name(), exp.Handler()), nil
+	uri := fmt.Sprintf("%s", c.ScrapeURI)
+	nClient, _ := client.NewNginxClient(&http.Client{}, uri)
+
+	constLabels := make(map[string]string)
+
+	exp := collector.NewNginxCollector(nClient, "fusionreactor", constLabels)
+
+	return integrations.NewCollectorIntegration(c.Name(), integrations.WithCollectors(exp)), nil
 }
