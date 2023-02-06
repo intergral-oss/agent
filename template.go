@@ -22,8 +22,10 @@ import (
 // Config controls the template_exporter integration.
 type Config struct {
 	// Unique
-	// DataSourceName to use to connect to template.
+	// DataSourceName to use to connect to template server.
 	DataSourceName config_util.Secret `yaml:"data_source_name,omitempty"`
+
+	//Add any other config file options here
 
 }
 
@@ -38,9 +40,10 @@ func (c *Config) Name() string {
 	return "template_exporter"
 }
 
-// InstanceKey returns the address:port of the mongodb server being queried.
+// InstanceKey returns the address:port of the template server being queried.
 func (c *Config) InstanceKey(_ string) (string, error) {
 	// Unique
+	// Use this to retrieve the datasource name from the config
 }
 
 // NewIntegration converts this config into an instance of a configuration.
@@ -57,4 +60,6 @@ func init() {
 // metrics from a template process.
 func New(log log.Logger, c *Config) (integrations.Integration, error) {
 	// Unique
+	// Use to implement go methods from the template exporter
+	// This starts an instance of that exporter
 }
