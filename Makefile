@@ -91,7 +91,7 @@
 
 include tools/make/*.mk
 
-AGENT_IMAGE      ?= grafana/agent:latest
+AGENT_IMAGE      ?= grafusion/agent:latest
 AGENTCTL_IMAGE   ?= grafana/agentctl:latest
 OPERATOR_IMAGE   ?= grafana/agent-operator:latest
 CROW_IMAGE       ?= us.gcr.io/kubernetes-dev/grafana/agent-crow:latest
