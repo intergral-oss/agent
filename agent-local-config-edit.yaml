@@ -1,0 +1,87 @@
+server:
+  log_level: info
+
+metrics:
+  global:
+    scrape_interval: 1m
+    remote_write:
+      - url: "https://api.fusionreactor.io/v1/metrics"
+        authorization:
+          credentials: 7f5e1598e67524aacf90da7d8479a16f1236fe01095b081f0b684eae7570e54c4c5660b2b8adae573f860c2bca3b98b5ffe4237de2980e26d8951324ed4a9ee1
+  configs:
+    - name: default
+      scrape_configs:
+        - job_name: agent
+          static_configs:
+            - targets: ['127.0.0.1:12345']
+
+logs:
+  configs:
+    - name: default
+      positions:
+        filename: /tmp/positions.yaml
+      scrape_configs:
+        - job_name: varlogs
+          static_configs:
+            - targets: [localhost]
+              labels:
+                job: localLogs
+                __path__: /home/ibrahim/grafanaAgent/*log
+      clients:
+        - url: "https://api.fusionreactor.io/v1/logs"
+          authorization:
+            credentials: 7f5e1598e67524aacf90da7d8479a16f1236fe01095b081f0b684eae7570e54c4c5660b2b8adae573f860c2bca3b98b5ffe4237de2980e26d8951324ed4a9ee1
+
+traces:
+  configs:
+    - name: default
+      receivers:
+        jaeger:
+          protocols:
+            grpc: # listens on the default jaeger grpc port: 14250
+      remote_write:
+        - endpoint: localhost:55680
+          insecure: true  # only add this if TLS is not required
+      batch:
+        timeout: 5s
+        send_batch_size: 100
+
+integrations:
+  node_exporter:
+    enabled: true
+
+  mysqld_exporter:
+    enabled: true
+    data_source_name: root:my-secret-pw@(mysql:3306)/
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: server-a
+
+  postgres_exporter:
+    enabled: true
+    data_source_names:
+      - postgresql://postgres:postgrespassword@postgres:5432/shop?sslmode=disable
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: server-a
+
+  mongodb_exporter:
+    enabled: true
+    mongodb_uri: mongodb://root:example@mongodb:27017/?authSource=admin
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: service_name
+        replacement: 'replicaset1-node1'
+      - source_labels: [__address__]
+        target_label: mongodb_cluster
+        replacement: 'prod-cluster'
+
+#  kafka_exporter:
+#    enabled: true
+#    kafka_uris: [http://kafka:9092]
+#    relabel_configs:
+#    - source_labels: [__address__]
+#      target_label: instance
+#      replacement: server-a
