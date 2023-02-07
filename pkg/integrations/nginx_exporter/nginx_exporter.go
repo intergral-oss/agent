@@ -58,7 +58,7 @@ func New(logger log.Logger, c *Config) (integrations.Integration, error) {
 
 	constLabels := make(map[string]string)
 
-	exp := collector.NewNginxCollector(nClient, "fusionreactor", constLabels)
+	exp := collector.NewNginxCollector(nClient, "nginx", constLabels)
 
 	return integrations.NewCollectorIntegration(c.Name(), integrations.WithCollectors(exp)), nil
 }

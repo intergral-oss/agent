@@ -52,7 +52,7 @@ integrations:
 
   nginx_exporter:
     enabled: true
-    scrape_uri: http://nginx:8084/basic_status
+    scrape_uri: http://localhost:8084/metrics
     nginx_plus: false
     relabel_configs:
       - source_labels: [ __address__ ]
