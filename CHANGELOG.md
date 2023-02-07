@@ -17,18 +17,19 @@ Main (unreleased)
 
 ### Features
 
-- New integrations: introduce the `oracledb` integration. (@schmikei)
+- New integrations:
 
   - `oracledb` (@schmikei)
   - `mssql` (@binaryfissiongames)
   - `cloudwatch metrics` (@thepalbi)
   - `azure` (@kgeckhart)
-
-- Integrations: Introduce a `gcp` integration. (@kgeckhart and @ferruvich)
+  - `gcp` (@kgeckhart, @ferruvich)
 
 - New Grafana Agent Flow components:
-    - `otelcol.processor.tail_sampling` samples traces based on a set of defined policies from `otelcol` components before
+  - `otelcol.processor.tail_sampling` samples traces based on a set of defined policies from `otelcol` components before
     forwarding them to other `otelcol` components. (@erikbaranowski)
+  - `loki.source.docker` reads logs from Docker containers and forwards them to
+    other `loki` components. (@tpaschalis)
 
 ### Enhancements
 
@@ -53,7 +54,23 @@ Main (unreleased)
 
 ### Other changes
 
-- Use Go 1.20 for builds. (@rfratto)
+- Use Go 1.20 for builds. Official release binaries are still produced using Go
+  1.19. (@rfratto)
+
+v0.31.1 (2023-02-06)
+--------------------
+
+> **BREAKING CHANGES**: This release has breaking changes. Please read entries
+> carefully and consult the [upgrade guide][] for specific instructions.
+
+### Breaking changes
+
+- All release Windows `.exe` files are now published as a zip archive.
+  Previously, `grafana-agent-installer.exe` was unzipped. (@rfratto)
+
+### Other changes
+
+- Support Go 1.20 for builds. (@rfratto)
 
 v0.31.0 (2023-01-31)
 --------------------
