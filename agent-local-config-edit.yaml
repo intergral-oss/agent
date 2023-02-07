@@ -50,6 +50,15 @@ integrations:
   node_exporter:
     enabled: true
 
+  nginx_exporter:
+    enabled: true
+    scrape_uri: nginx:80/basic_status
+    nginx_plus: false
+    relabel_configs:
+      - source_labels: [ __address__ ]
+        target_label: instance
+        replacement: server-a
+
   mysqld_exporter:
     enabled: true
     data_source_name: root:my-secret-pw@(mysql:3306)/
