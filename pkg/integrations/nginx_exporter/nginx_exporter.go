@@ -6,6 +6,7 @@ import (
 	"github.com/grafana/agent/pkg/integrations"
 	integrations_v2 "github.com/grafana/agent/pkg/integrations/v2"
 	"github.com/grafana/agent/pkg/integrations/v2/metricsutils"
+	plusclient "github.com/nginxinc/nginx-plus-go-client/client"
 	"github.com/nginxinc/nginx-prometheus-exporter/client"
 	"github.com/nginxinc/nginx-prometheus-exporter/collector"
 	config_util "github.com/prometheus/common/config"
@@ -54,11 +55,17 @@ func New(logger log.Logger, c *Config) (integrations.Integration, error) {
 	//logrusLogger := integrations.NewLogger(logger)
 
 	uri := fmt.Sprintf("%s", c.ScrapeURI)
-	nClient, _ := client.NewNginxClient(&http.Client{}, uri)
 
 	constLabels := make(map[string]string)
 
-	exp := collector.NewNginxCollector(nClient, "fusionreactor", constLabels)
-
-	return integrations.NewCollectorIntegration(c.Name(), integrations.WithCollectors(exp)), nil
+	if c.NginxPlus {
+		nClient, _ := plusclient.NewNginxClient(&http.Client{}, uri)
+		varLabelNames := collector.NewVariableLabelNames(nil, nil, nil, nil, nil, nil)
+		exp := collector.NewNginxPlusCollector(nClient, "nginx", varLabelNames, constLabels)
+		return integrations.NewCollectorIntegration(c.Name(), integrations.WithCollectors(exp)), nil
+	} else {
+		nClient, _ := client.NewNginxClient(&http.Client{}, uri)
+		exp := collector.NewNginxCollector(nClient, "nginx", constLabels)
+		return integrations.NewCollectorIntegration(c.Name(), integrations.WithCollectors(exp)), nil
+	}
 }

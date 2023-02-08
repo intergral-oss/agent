@@ -50,33 +50,42 @@ integrations:
   node_exporter:
     enabled: true
 
-  mysqld_exporter:
+  nginx_exporter:
     enabled: true
-    data_source_name: root:my-secret-pw@(mysql:3306)/
+    scrape_uri: http://localhost:8084/metrics
+    nginx_plus: false
     relabel_configs:
-      - source_labels: [__address__]
+      - source_labels: [ __address__ ]
         target_label: instance
         replacement: server-a
 
-  postgres_exporter:
-    enabled: true
-    data_source_names:
-      - postgresql://postgres:postgrespassword@postgres:5432/shop?sslmode=disable
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        replacement: server-a
-
-  mongodb_exporter:
-    enabled: true
-    mongodb_uri: mongodb://root:example@mongodb:27017/?authSource=admin
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: service_name
-        replacement: 'replicaset1-node1'
-      - source_labels: [__address__]
-        target_label: mongodb_cluster
-        replacement: 'prod-cluster'
+#  mysqld_exporter:
+#    enabled: true
+#    data_source_name: root:my-secret-pw@(mysql:3306)/
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: instance
+#        replacement: server-a
+#
+#  postgres_exporter:
+#    enabled: true
+#    data_source_names:
+#      - postgresql://postgres:postgrespassword@postgres:5432/shop?sslmode=disable
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: instance
+#        replacement: server-a
+#
+#  mongodb_exporter:
+#    enabled: true
+#    mongodb_uri: mongodb://root:example@mongodb:27017/?authSource=admin
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: service_name
+#        replacement: 'replicaset1-node1'
+#      - source_labels: [__address__]
+#        target_label: mongodb_cluster
+#        replacement: 'prod-cluster'
 
 #  kafka_exporter:
 #    enabled: true

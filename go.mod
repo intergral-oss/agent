@@ -39,6 +39,7 @@ require (
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/gogo/protobuf v1.3.2
+	github.com/golang/protobuf v1.5.2
 	github.com/golang/snappy v0.0.4
 	github.com/google/cadvisor v0.44.0
 	github.com/google/dnsmasq_exporter v0.0.0-00010101000000-000000000000
@@ -81,6 +82,7 @@ require (
 	github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f
 	github.com/ncabatoff/process-exporter v0.7.10
 	github.com/nerdswords/yet-another-cloudwatch-exporter v0.44.0-alpha
+	github.com/nginxinc/nginx-prometheus-exporter v0.11.0
 	github.com/oklog/run v1.1.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/oliver006/redis_exporter v1.27.1
@@ -106,7 +108,7 @@ require (
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.8.1
-	github.com/percona/mongodb_exporter v0.36.0
+	github.com/percona/mongodb_exporter v0.31.2
 	github.com/phayes/freeport v0.0.0-20220201140144-74d24b5ae9f5
 	github.com/pkg/errors v0.9.1
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2
@@ -129,7 +131,6 @@ require (
 	github.com/prometheus/prometheus v1.99.0
 	github.com/prometheus/snmp_exporter v0.20.1-0.20220111173215-83399c23888f
 	github.com/prometheus/statsd_exporter v0.22.8
-	github.com/prometheus/tsdb v0.7.1
 	github.com/rancher/k3d/v5 v5.2.2
 	github.com/rfratto/ckit v0.0.0-20220401221852-009169323240
 	github.com/rs/cors v1.8.3
@@ -229,6 +230,7 @@ require (
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20210920160938-87db9fbc61c7 // indirect
 	github.com/Shopify/ejson v1.3.1 // indirect
+	github.com/Sirupsen/logrus v1.0.6 // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/VividCortex/gohistogram v1.0.0 // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
@@ -345,7 +347,6 @@ require (
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gomodule/redigo v2.0.0+incompatible // indirect
 	github.com/google/btree v1.0.1 // indirect
 	github.com/google/flatbuffers v2.0.8+incompatible // indirect
@@ -423,6 +424,8 @@ require (
 	github.com/jsimonetti/rtnetlink v1.3.0 // indirect
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
 	github.com/karrick/godirwalk v1.16.1 // indirect
+	github.com/kbudde/gobert v0.0.0-20220512191144-9767639f5c50 // indirect
+	github.com/kbudde/rabbitmq_exporter v0.29.0 // indirect
 	github.com/kevinburke/ssh_config v1.1.0 // indirect
 	github.com/klauspost/compress v1.15.11 // indirect
 	github.com/knadh/koanf v1.4.4 // indirect
@@ -468,7 +471,6 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/ncabatoff/go-seq v0.0.0-20180805175032-b08ef85ed833 // indirect
 	github.com/nginxinc/nginx-plus-go-client v0.10.0 // indirect
-	github.com/nginxinc/nginx-prometheus-exporter v0.11.0 // indirect
 	github.com/nicolai86/scaleway-sdk v1.10.2-0.20180628010248-798f60e20bb2 // indirect
 	github.com/observiq/ctimefmt v1.0.0 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
@@ -569,7 +571,7 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.36.4 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.36.4 // indirect
 	go4.org/intern v0.0.0-20211027215823-ae77deb06f29 // indirect
-	go4.org/unsafe/assume-no-moving-gc v0.0.0-20220617031537-928513b29760 // indirect
+	go4.org/unsafe/assume-no-moving-gc v0.0.0-20230204201903-c31fa085b70e // indirect
 	gocloud.dev v0.24.0 // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
@@ -681,6 +683,3 @@ exclude (
 )
 
 replace github.com/github/smimesign => github.com/grafana/smimesign v0.2.1-0.20220408144937-2a5adf3481d3
-
-// TODO(rfratto): Remove when go4.org/unsafe/assume-no-moving-gc is updated for 1.20.
-replace go4.org/unsafe/assume-no-moving-gc => github.com/rfratto/unsafe-assume-no-moving-gc v0.0.0-20230202205252-987ee08b7700
